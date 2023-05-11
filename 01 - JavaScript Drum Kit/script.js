@@ -15,6 +15,7 @@ function setSound(val){
     }
 }
 
+//Listen for a "key up event" (I listened on document, he listens on window) (I used keyup, he uses keydown)
 document.addEventListener("keyup", (event) => {
     let keys = Array.from(document.querySelectorAll(".key"));
     if (event.code === "KeyA") {
@@ -54,3 +55,12 @@ document.addEventListener("keyup", (event) => {
         setSound(76);
     }
 });
+
+/*
+    ISSUES WITH MY SOLUTION
+    - Adding event listener to document instead of window
+    - Using keyup instead of keydown
+    - Not rewinding the sound (no immediate playback)
+    - Not adding the class to the classList (I was setting it as the only class)
+    - No removing class afterwards using the event properties
+*/

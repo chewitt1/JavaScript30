@@ -5,7 +5,7 @@
   <title>JS Drum Kit</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="https://fav.farm/🔥" />
-  <script src="script.js" defer></script>
+  <!--<script src="script.js" defer></script>-->
 </head>
 <body>
 
@@ -60,7 +60,25 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+  function playSound(e){
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+    if(!audio){return;}
+    audio.currentTime = 0;
+    audio.play();
+    key.classList.add("playing");
+  }
+  
+  function removeTransition(e){
+    if(e.propertyName !== "transform"){return;}//What is transform? End of transition?
+    this.classList.remove("playing");//This is equal to the key
+  }
 
+  const keys = document.querySelectorAll(".key");
+  keys.forEach(key => key.addEventListener("transitionend", removeTransition));
+
+  //Listen for a "key event" (I listened on document, he listens on window) (I used keyup and he used keydown)
+  window.addEventListener("keyup", playSound);
 </script>
 
 
